@@ -1,0 +1,25 @@
+Terraform Day 1 Notes
+
+1. Terraform is an IaC tool developed by HashiCorp.
+
+2. Instead of manually creating AWS resources, we can define infrastructure using code.
+
+3. Terraform uses HCL language.
+
+4. Benefits:
+- Automation
+- Reusability
+- Version Control
+- Multi-cloud support
+
+5. Commands:
+terraform version
+terraform init
+terraform plan
+terraform apply
+terraform destroy
+
+6. Questions:
+- How does Terraform connect with AWS?
+- What are Providers?
+- What is Terraform State?
