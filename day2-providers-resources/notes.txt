@@ -1,0 +1,78 @@
+Terraform Day 2 Notes
+Date: 18 July 2026
+
+Topics Covered:
+1. Terraform Architecture
+2. Providers
+3. Resources
+4. terraform init
+
+--------------------------------------------------
+
+1. Terraform Workflow
+
+Write Code
+↓
+terraform init
+↓
+terraform plan
+↓
+terraform apply
+↓
+Infrastructure Created
+
+--------------------------------------------------
+
+2. What are Providers?
+
+Providers are plugins that allow Terraform to communicate with different platforms.
+
+Examples:
+- AWS Provider
+- Docker Provider
+- Azure Provider
+- Kubernetes Provider
+
+Terraform itself cannot directly talk to cloud platforms.
+
+--------------------------------------------------
+
+3. What are Resources?
+
+Resources are the actual infrastructure objects managed by Terraform.
+
+Examples:
+- EC2 Instance
+- S3 Bucket
+- Docker Container
+- Kubernetes Pod
+
+General Syntax:
+
+resource "<TYPE>" "<NAME>" {
+   configuration
+}
+
+--------------------------------------------------
+
+4. terraform init
+
+Purpose:
+- Initializes Terraform project
+- Downloads provider plugins
+- Creates .terraform directory
+- Creates .terraform.lock.hcl
+
+Command:
+
+terraform init
+
+Output Observed:
+
+Terraform has been successfully initialized!
+
+--------------------------------------------------
+
+Key Learning:
+
+Terraform uses Providers to communicate with infrastructure platforms and Resources to define actual infrastructure components.
