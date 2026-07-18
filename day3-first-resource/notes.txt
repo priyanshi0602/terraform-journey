@@ -1,0 +1,25 @@
+Terraform Day 3 Notes
+Date: 18 July 2026
+
+Topics Covered:
+1. terraform plan
+2. terraform apply
+3. docker_image resource
+4. docker_container resource
+5. port mapping
+
+Commands Used:
+
+terraform init
+terraform plan
+terraform apply
+docker ps
+
+Issue Faced:
+Port 8080 was already occupied by an existing container.
+
+Solution:
+Changed external port to 8081.
+
+Key Learning:
+Infrastructure can be deployed automatically using Terraform.
