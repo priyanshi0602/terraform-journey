@@ -1,0 +1,40 @@
+
+---
+
+# notes.txt
+
+```txt
+DAY 4 NOTES
+
+1. Terraform stores infrastructure information inside terraform.tfstate.
+
+2. State file helps Terraform know:
+- what resources exist
+- resource IDs
+- changes required
+
+3. Important Commands:
+
+terraform init
+terraform validate
+terraform plan
+terraform apply
+terraform show
+terraform state list
+terraform destroy
+
+4. terraform destroy removes all infrastructure managed by Terraform.
+
+5. State management is one of Terraform's most important concepts.
+
+Issue Faced:
+Terraform destroy failed because Docker daemon was stopped.
+
+Solution:
+Started Docker service using:
+
+sudo systemctl start docker
+
+Learning:
+Terraform communicates with providers (Docker/AWS/etc.).
+If the provider service is unavailable, Terraform operations fail.
