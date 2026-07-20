@@ -42,3 +42,5 @@ Nginx Container
 ## Key Learning
 
 Infrastructure can be created and managed entirely through code.
+
+Last updated: Day 3 - First Terraform Resource
