@@ -1,0 +1,14 @@
+Issue Faced:
+Terraform could not destroy the Docker image because old containers were still using it.
+
+Error:
+conflict: unable to delete image - container is using its referenced image.
+
+Solution:
+Removed old containers manually using:
+
+docker rm -f <container_id>
+
+Learning:
+Resources may depend on each other.
+Terraform and Docker cannot delete resources that are still being used.
