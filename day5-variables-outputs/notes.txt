@@ -1,0 +1,8 @@
+Day 5 Notes – Variables and Outputs
+
+1. Variables make Terraform configurations reusable.
+2. variables.tf contains variable definitions.
+3. terraform.tfvars stores actual values.
+4. Variables are accessed using var.variable_name.
+5. Outputs display useful information after terraform apply.
+6. output block helps expose resource information.
