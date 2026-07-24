@@ -1,0 +1,57 @@
+Terraform Day 7 Notes
+
+What is a Module?
+A module is a collection of Terraform configuration files that are used together.
+
+Advantages
+- Reusable code
+- Easy maintenance
+- Better organization
+- Scalable infrastructure
+- Avoid duplicate code
+
+Types of Modules
+1. Root Module
+2. Child Module
+
+Root Module
+The main Terraform project that calls other modules.
+
+Child Module
+A reusable Terraform configuration located inside another folder.
+
+Common Files
+
+main.tf
+Contains resources.
+
+variables.tf
+Stores input variables.
+
+outputs.tf
+Returns values.
+
+Example
+
+module "nginx" {
+  source = "./modules/nginx"
+}
+
+Outputs
+
+output "container_name" {
+  value = docker_container.web.name
+}
+
+Commands
+
+terraform init
+terraform validate
+terraform fmt
+terraform apply
+terraform output
+terraform destroy
+
+Key Learning
+
+Modules help write reusable and organized Terraform code.
