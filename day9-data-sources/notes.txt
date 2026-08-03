@@ -1,0 +1,311 @@
+Terraform Day 9 - Data Sources
+
+Date:
+Topic: Terraform Data Sources
+
+------------------------------------------------------------
+1. Introduction
+------------------------------------------------------------
+
+Terraform Data Sources allow us to retrieve information about infrastructure that already exists instead of creating new resources.
+
+A Resource creates infrastructure.
+
+A Data Source reads existing infrastructure.
+
+Data Sources are useful when:
+- Existing resources were created manually.
+- Infrastructure is managed by another Terraform project.
+- Existing cloud resources need to be referenced.
+- Existing Docker images, VPCs, Security Groups, etc., need to be used.
+
+Syntax:
+
+data "<PROVIDER_RESOURCE>" "<NAME>" {
+    ...
+}
+
+Example:
+
+data "docker_image" "nginx" {
+    name = "nginx:latest"
+}
+
+------------------------------------------------------------
+2. Resource vs Data Source
+------------------------------------------------------------
+
+Resource
+--------
+- Creates infrastructure
+- Managed by Terraform
+- Uses the "resource" block
+- Changes infrastructure
+
+Example:
+
+resource "docker_container" "web" {
+    ...
+}
+
+Data Source
+-----------
+- Reads existing infrastructure
+- Read-only
+- Uses the "data" block
+- Does not create infrastructure
+
+Example:
+
+data "docker_image" "nginx" {
+    name = "nginx:latest"
+}
+
+------------------------------------------------------------
+3. Provider Configuration
+------------------------------------------------------------
+
+Terraform uses providers to communicate with external platforms.
+
+In this project the Docker provider is used.
+
+Example:
+
+terraform {
+  required_providers {
+    docker = {
+      source  = "kreuzwerker/docker"
+      version = "~> 3.0"
+    }
+  }
+}
+
+provider "docker" {}
+
+------------------------------------------------------------
+4. Reading an Existing Docker Image
+------------------------------------------------------------
+
+Instead of downloading or creating an image through a Terraform resource, we retrieve information about an image that already exists.
+
+Example:
+
+data "docker_image" "nginx" {
+    name = "nginx:latest"
+}
+
+Terraform fetches details like:
+
+- Image Name
+- Image ID
+- Repository Information
+
+------------------------------------------------------------
+5. Using Data Source Values
+------------------------------------------------------------
+
+Values returned by a Data Source can be used in other resources.
+
+Example:
+
+resource "docker_container" "web" {
+
+    name  = "day9-nginx"
+
+    image = data.docker_image.nginx.id
+
+    ports {
+        internal = 80
+        external = 8085
+    }
+}
+
+Here,
+
+data.docker_image.nginx.id
+
+returns the Image ID of the existing Nginx image.
+
+------------------------------------------------------------
+6. Outputs
+------------------------------------------------------------
+
+Terraform Outputs display useful information after deployment.
+
+Example:
+
+output "image_name" {
+    value = data.docker_image.nginx.name
+}
+
+output "image_id" {
+    value = data.docker_image.nginx.id
+}
+
+output "container_name" {
+    value = docker_container.web.name
+}
+
+Outputs help users quickly access important resource details.
+
+------------------------------------------------------------
+7. Commands Executed
+------------------------------------------------------------
+
+Initialize Terraform
+
+terraform init
+
+Format Configuration
+
+terraform fmt
+
+Validate Configuration
+
+terraform validate
+
+Preview Infrastructure
+
+terraform plan
+
+Create Infrastructure
+
+terraform apply
+
+View Running Containers
+
+docker ps
+
+Destroy Infrastructure
+
+terraform destroy
+
+------------------------------------------------------------
+8. Execution Summary
+------------------------------------------------------------
+
+Terraform successfully:
+
+✓ Initialized the Docker provider
+
+✓ Read the existing nginx:latest Docker image
+
+✓ Created a Docker container named:
+
+day9-nginx
+
+✓ Exposed the container on:
+
+localhost:8085
+
+✓ Displayed outputs:
+
+- Image Name
+- Image ID
+- Container Name
+
+------------------------------------------------------------
+9. Advantages of Data Sources
+------------------------------------------------------------
+
+• Avoids recreating existing infrastructure.
+
+• Improves reusability.
+
+• Makes Terraform configurations modular.
+
+• Useful in multi-team environments.
+
+• Reads infrastructure managed elsewhere.
+
+• Reduces duplication.
+
+------------------------------------------------------------
+10. Real-World Use Cases
+------------------------------------------------------------
+
+AWS
+
+Read an existing VPC before creating EC2 instances.
+
+Azure
+
+Retrieve an existing Resource Group.
+
+Google Cloud
+
+Read an existing network before deploying Compute Engine.
+
+Docker
+
+Read an existing Docker image and create containers from it.
+
+Kubernetes
+
+Retrieve cluster information before deploying applications.
+
+------------------------------------------------------------
+11. Key Learning Outcomes
+------------------------------------------------------------
+
+After completing this exercise, I learned:
+
+✓ Difference between Resources and Data Sources.
+
+✓ How Terraform reads existing infrastructure.
+
+✓ How to use the Docker Image Data Source.
+
+✓ How to reference Data Source attributes.
+
+✓ How Outputs display retrieved information.
+
+✓ Best practices for reusing existing infrastructure.
+
+------------------------------------------------------------
+12. Interview Questions
+------------------------------------------------------------
+
+Q1. What is a Terraform Data Source?
+
+Answer:
+A Data Source retrieves information about existing infrastructure without creating or modifying it.
+
+------------------------------------------------------------
+
+Q2. What is the difference between a Resource and a Data Source?
+
+Answer:
+A Resource creates infrastructure, whereas a Data Source only reads existing infrastructure.
+
+------------------------------------------------------------
+
+Q3. Why are Data Sources important?
+
+Answer:
+They enable Terraform to reuse existing resources, reduce duplication, and integrate with infrastructure managed outside the current configuration.
+
+------------------------------------------------------------
+
+Q4. How do you reference a Data Source attribute?
+
+Answer:
+
+data.<resource_type>.<name>.<attribute>
+
+Example:
+
+data.docker_image.nginx.id
+
+------------------------------------------------------------
+
+Q5. Can a Data Source create infrastructure?
+
+Answer:
+No. Data Sources are read-only and cannot create or modify infrastructure.
+
+------------------------------------------------------------
+13. Conclusion
+------------------------------------------------------------
+
+Terraform Data Sources provide a reliable way to access existing infrastructure and use its information in new configurations. They improve reusability, simplify infrastructure management, and are widely used in production environments where resources already exist. Understanding Data Sources is an essential Terraform skill for building scalable and maintainable Infrastructure as Code (IaC).
