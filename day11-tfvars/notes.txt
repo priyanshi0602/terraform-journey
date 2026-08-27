@@ -1,0 +1,197 @@
+DAY 11 – TERRAFORM TFVARS AND VARIABLE MANAGEMENT
+
+Topic:
+Terraform Input Variables, terraform.tfvars and Outputs
+
+---
+
+1. INPUT VARIABLES
+
+---
+
+Terraform variables allow us to pass values into our configuration instead of hardcoding them.
+
+Example:
+
+variable "container_name" {
+type = string
+}
+
+variable "external_port" {
+type = number
+}
+
+variable "image_name" {
+type = string
+}
+
+Variables make Terraform configurations more reusable and easier to modify.
+
+---
+
+2. terraform.tfvars
+
+---
+
+The terraform.tfvars file is used to provide values for Terraform input variables.
+
+For this project:
+
+container_name = "day11-nginx"
+external_port  = 8087
+image_name     = "nginx:latest"
+
+Terraform automatically loads values from terraform.tfvars when running commands such as terraform plan and terraform apply.
+
+---
+
+3. WHY USE tfvars?
+
+---
+
+Without variables, values would have to be hardcoded directly inside resources.
+
+Using variables and tfvars provides:
+
+* Better reusability
+* Cleaner configuration
+* Easier customization
+* Separation of configuration values from infrastructure code
+
+---
+
+4. TERRAFORM OUTPUTS
+
+---
+
+Outputs display useful information after Terraform creates resources.
+
+This project displays:
+
+container_name = "day11-nginx"
+container_port = 8087
+image_name     = "nginx:latest"
+
+Outputs can also be used to expose information from modules.
+
+---
+
+5. TERRAFORM COMMANDS USED
+
+---
+
+terraform init
+
+Initializes the Terraform working directory and installs required providers.
+
+terraform fmt
+
+Formats Terraform configuration files.
+
+terraform validate
+
+Checks whether the Terraform configuration is valid.
+
+terraform plan
+
+Shows the infrastructure changes Terraform intends to make.
+
+terraform apply
+
+Creates or updates the infrastructure.
+
+---
+
+6. PROVIDER
+
+---
+
+This project uses the Docker provider:
+
+kreuzwerker/docker
+
+Provider version installed:
+
+3.9.0
+
+The provider allows Terraform to manage Docker resources.
+
+---
+
+7. RESOURCES CREATED
+
+---
+
+Two resources were created:
+
+1. docker_image.nginx
+   Image: nginx:latest
+
+2. docker_container.web
+   Container: day11-nginx
+
+Terraform result:
+
+2 added
+0 changed
+0 destroyed
+
+---
+
+8. PORT MAPPING
+
+---
+
+The Nginx container listens internally on port 80.
+
+The host exposes it through port 8087.
+
+Port mapping:
+
+8087 -> 80
+
+Therefore the application can be accessed using:
+
+http://localhost:8087
+
+---
+
+9. VERIFICATION
+
+---
+
+Command:
+
+docker ps
+
+Result:
+
+day11-nginx container was running successfully.
+
+Port:
+
+0.0.0.0:8087 -> 80/tcp
+
+The Nginx server was then tested using:
+
+curl http://localhost:8087
+
+The command returned the default Nginx welcome page HTML.
+
+---
+
+10. KEY TAKEAWAY
+
+---
+
+terraform.tfvars provides values for input variables.
+
+variables.tf defines the variables.
+
+main.tf uses the variables to create infrastructure.
+
+outputs.tf displays useful information after deployment.
+
+This separation makes Terraform configurations cleaner, reusable and easier to maintain.
+
+DAY 11 COMPLETED SUCCESSFULLY.
