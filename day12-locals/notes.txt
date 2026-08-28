@@ -1,0 +1,127 @@
+
+---
+
+# 📝 notes.txt
+
+Paste this into `notes.txt`:
+
+```text
+DAY 12 - TERRAFORM LOCAL VALUES
+
+1. WHAT ARE LOCAL VALUES?
+
+Local values allow us to define a value or expression once and reuse it multiple times in a Terraform configuration.
+
+They are defined using the locals block.
+
+Example:
+
+locals {
+  image_name = "nginx:latest"
+}
+
+The value can be accessed using:
+
+local.image_name
+
+
+2. SYNTAX
+
+locals {
+  name = value
+}
+
+
+3. ACCESSING LOCAL VALUES
+
+Local values are accessed using:
+
+local.<local_name>
+
+Example:
+
+local.image_name
+
+
+4. VARIABLES VS LOCAL VALUES
+
+Variables:
+- Accept input values.
+- Can be provided by users.
+- Are accessed using var.<variable_name>.
+
+Local Values:
+- Are defined inside the Terraform configuration.
+- Cannot be directly provided by users.
+- Are accessed using local.<local_name>.
+- Help avoid repeating values and expressions.
+
+
+5. USING VARIABLES INSIDE LOCALS
+
+A local value can use variables.
+
+Example:
+
+locals {
+  container_full_name = "${var.container_name}-container"
+}
+
+Here, the local value combines the container_name variable with additional text.
+
+
+6. BENEFITS OF LOCAL VALUES
+
+- Reduces repeated code.
+- Improves readability.
+- Makes complex expressions easier to manage.
+- Helps maintain consistent values across resources.
+
+
+7. COMMANDS USED
+
+terraform init
+Initializes the Terraform working directory and downloads providers.
+
+terraform fmt
+Formats Terraform configuration files.
+
+terraform validate
+Checks whether the Terraform configuration is valid.
+
+terraform plan
+Shows the execution plan before creating infrastructure.
+
+terraform apply
+Creates the infrastructure defined in the Terraform configuration.
+
+terraform destroy
+Removes the infrastructure created by Terraform.
+
+
+8. DAY 12 PRACTICAL
+
+Created an Nginx Docker container using Terraform.
+
+Used variables for:
+- Container name
+- External port
+
+Used local values for:
+- Docker image name
+- Full container name
+
+Configured port mapping:
+Host Port: 8088
+Container Port: 80
+
+Verified the container using:
+
+curl http://localhost:8088
+
+
+KEY TAKEAWAY
+
+Use variables when values should be provided as input.
+
+Use local values when values or expressions are calculated or reused internally within the Terraform configuration.
