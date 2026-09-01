@@ -1,0 +1,130 @@
+# DAY 13 – TERRAFORM LOCALS
+
+TOPIC:
+Terraform Local Values (locals)
+
+1. WHAT ARE LOCALS?
+
+---
+
+Terraform locals are named values that can be used to store
+reusable expressions or values inside a Terraform configuration.
+
+They help avoid repeating the same values multiple times.
+
+2. SYNTAX
+
+---
+
+locals {
+container_name = "day13-nginx"
+image_name     = "nginx:latest"
+}
+
+A local value is referenced using:
+
+local.container_name
+local.image_name
+
+3. WHY USE LOCALS?
+
+---
+
+Locals are useful because they:
+
+* Reduce repetition
+* Improve readability
+* Make configurations easier to maintain
+* Allow commonly used values to be defined in one place
+* Make Terraform configurations cleaner
+
+4. LOCALS VS VARIABLES
+
+---
+
+Variables:
+
+* Used to accept input from users or other configurations.
+* Values can change depending on the environment or input.
+
+Locals:
+
+* Used to define reusable values or expressions inside the configuration.
+* Usually calculated or defined within the Terraform configuration.
+
+5. EXAMPLE
+
+---
+
+locals {
+container_name = "day13-nginx"
+image_name     = "nginx:latest"
+}
+
+resource "docker_container" "web" {
+name  = local.container_name
+image = local.image_name
+}
+
+6. IMPORTANT SYNTAX
+
+---
+
+Define a local:
+
+locals {
+name = "value"
+}
+
+Use a local:
+
+local.name
+
+7. COMMANDS USED
+
+---
+
+terraform fmt
+
+Formats Terraform configuration files.
+
+terraform validate
+
+Checks whether the Terraform configuration is valid.
+
+terraform plan
+
+Shows the changes Terraform plans to make without actually
+applying them.
+
+8. WORKFLOW
+
+---
+
+Write Terraform configuration
+↓
+terraform fmt
+↓
+terraform validate
+↓
+terraform plan
+↓
+Review execution plan
+↓
+Apply configuration if required
+
+9. KEY TAKEAWAY
+
+---
+
+Terraform locals are useful for storing reusable values and
+expressions.
+
+They make Terraform code:
+
+* Cleaner
+* More readable
+* Less repetitive
+* Easier to maintain
+
+DAY 13 STATUS: COMPLETED ✅
