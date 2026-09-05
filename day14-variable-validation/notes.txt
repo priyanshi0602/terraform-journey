@@ -1,0 +1,126 @@
+# DAY 14 — TERRAFORM VARIABLE VALIDATION
+
+Topic:
+Terraform Variable Validation
+
+1. WHAT IS VARIABLE VALIDATION?
+
+---
+
+Terraform variable validation allows us to define rules for input variables.
+
+Terraform checks these rules before using the variable value.
+
+If the value does not satisfy the condition, Terraform stops and displays a custom error message.
+
+2. BASIC SYNTAX
+
+---
+
+variable "name" {
+type = string
+
+validation {
+condition     = <condition>
+error_message = "Invalid value"
+}
+}
+
+The validation block contains:
+
+condition:
+The expression that must evaluate to true.
+
+error_message:
+The message Terraform displays when the condition is false.
+
+3. WHY USE VARIABLE VALIDATION?
+
+---
+
+Variable validation helps:
+
+* Prevent invalid input
+* Catch configuration errors early
+* Improve infrastructure reliability
+* Reduce deployment failures
+* Make Terraform modules safer
+* Provide meaningful error messages
+
+4. EXAMPLES OF VALIDATION
+
+---
+
+Validation can be used for:
+
+* Allowed values
+* Minimum/maximum numbers
+* String length
+* Naming conventions
+* Specific formats
+* Environment names
+* Regions
+* Instance sizes
+
+Example:
+
+validation {
+condition     = contains(["dev", "prod"], var.environment)
+error_message = "Environment must be dev or prod."
+}
+
+5. TERRAFORM VALIDATION FLOW
+
+---
+
+User provides a variable value
+↓
+Terraform evaluates validation condition
+↓
+Condition TRUE
+↓
+Terraform continues
+
+Condition FALSE
+↓
+Terraform displays error_message
+↓
+Terraform stops
+
+6. COMMANDS USED
+
+---
+
+terraform fmt
+
+Formats Terraform configuration files.
+
+terraform validate
+
+Checks whether the Terraform configuration is valid.
+
+terraform plan
+
+Shows the changes Terraform plans to make.
+
+terraform apply
+
+Creates or modifies the infrastructure.
+
+7. IMPORTANT DIFFERENCE
+
+---
+
+terraform validate checks the overall Terraform configuration.
+
+Variable validation checks whether a specific input variable satisfies its defined rule.
+
+8. KEY TAKEAWAY
+
+---
+
+Variable validation is an important Terraform feature for creating safer and more predictable Infrastructure as Code.
+
+It allows Terraform to reject incorrect input before infrastructure changes are made.
+
+Day 14 completed.
